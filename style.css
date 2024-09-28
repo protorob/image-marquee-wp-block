@@ -1,0 +1,16 @@
+.imgb-marquee {
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap; /* Ensure no wrapping */
+}
+
+.imgb-marquee-inner {
+    display: flex;
+    white-space: nowrap; /* Prevent the images from wrapping */
+    gap: 2rem
+}
+
+.imgb-marquee-inner img {
+    flex-shrink: 0;
+    /* width: 150px;  Adjust to the image width */
+}
