@@ -89,7 +89,7 @@ registerBlockType('imgb/marquee-block', {
             <div className="imgb-marquee" data-speed={speed}>
                 <div className="imgb-marquee-inner">
                     {images.map((image) => (
-                        <img key={image.id} src={image.url} alt={image.alt} style={{ width: imageWidth }} />
+                        <img className="marquee-img" key={image.id} src={image.url} alt={image.alt} style={{ width: imageWidth }} />
                     ))}
                 </div>
             </div>
