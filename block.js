@@ -16,7 +16,7 @@ registerBlockType('imgb/marquee-block', {
         },
         imageWidth: {
             type: 'string',
-            default: '100px',
+            default: '200px',
         },
         speed: {
             type: 'number', // New attribute for speed
@@ -57,7 +57,7 @@ registerBlockType('imgb/marquee-block', {
                         />
                         <TextControl
                             label={__('Image Width', 'imgb')}
-                            value={imageWidth || '100px'}
+                            value={imageWidth || '200px'}
                             onChange={onChangeImageWidth}
                             help={__('Enter the width of the images, e.g., "100px" or "50%".')}
                         />
@@ -96,4 +96,3 @@ registerBlockType('imgb/marquee-block', {
         );
     }
 });
-

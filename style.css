@@ -1,16 +1,16 @@
 .imgb-marquee {
-    overflow: hidden;
-    width: 100%;
-    white-space: nowrap; /* Ensure no wrapping */
+    overflow: hidden; /* Hide anything that overflows outside the container */
+    width: 100%; /* The marquee width is 100% of its container */
+    white-space: nowrap; /* Ensure all content stays in a single line */
 }
 
 .imgb-marquee-inner {
-    display: flex;
-    white-space: nowrap; /* Prevent the images from wrapping */
-    gap: 2rem
+    display: flex; /* Display images in a horizontal row */
+    white-space: nowrap; /* Prevent wrapping inside the inner container */
+    will-change: transform; /* Optimize for smooth animation */
 }
 
 .imgb-marquee-inner img {
-    flex-shrink: 0;
-    /* width: 150px;  Adjust to the image width */
+    flex-shrink: 0; /* Prevent images from shrinking */
+    width: 200px; /* Set a fixed width for each image */
 }

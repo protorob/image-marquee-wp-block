@@ -6,41 +6,44 @@ document.addEventListener('DOMContentLoaded', function () {
         const speed = parseFloat(marqueeContainer.getAttribute('data-speed')) || 1; // Get speed from data attribute
 
         const images = Array.from(marqueeInner.children);
-        let totalImageWidth = marqueeInner.scrollWidth;
+        let totalImageWidth = images.reduce((acc, img) => acc + img.offsetWidth, 0);
 
-        // Ensure enough images are duplicated for scrolling in both directions
-        while (totalImageWidth < marqueeContainer.offsetWidth * 2) {
-            images.forEach((img) => {
+        // Step 1: Duplicate images until they fill the container at least once
+        while (totalImageWidth < marqueeContainer.offsetWidth) {
+            images.forEach(img => {
                 const clone = img.cloneNode(true);
-                marqueeInner.appendChild(clone); // Always append images to cover the width for both directions
+                marqueeInner.appendChild(clone);
             });
-            totalImageWidth = marqueeInner.scrollWidth; // Recalculate total image width after duplication
+            totalImageWidth = Array.from(marqueeInner.children).reduce((acc, img) => acc + img.offsetWidth, 0);
         }
 
         let scrollAmount = 0;
 
-        // If reverse scrolling, start from the end of the marquee
-        if (speed < 0) {
-            scrollAmount = -totalImageWidth / 2; // Start from the end for reverse scroll
-        }
-
         function scrollMarquee() {
-            scrollAmount -= speed; // Move forward or reverse depending on speed
+            scrollAmount -= speed; // Move based on speed (positive or negative)
 
-            // For forward scroll (positive speed), reset when we've scrolled through half the total width
-            if (speed > 0 && Math.abs(scrollAmount) >= totalImageWidth / 2) {
-                scrollAmount = 0; // Reset for forward scrolling
+            const firstImage = marqueeInner.children[0];
+            const lastImage = marqueeInner.children[marqueeInner.children.length - 1];
+
+            const firstImageWidth = firstImage.offsetWidth;
+            const lastImageWidth = lastImage.offsetWidth;
+
+            // Forward scrolling: if the first image has moved out of view, move it to the end
+            if (speed > 0 && scrollAmount <= -firstImageWidth) {
+                marqueeInner.appendChild(firstImage); // Move first image to the end
+                scrollAmount += firstImageWidth; // Adjust scrollAmount to account for the shifted image
             }
 
-            // For reverse scroll (negative speed), reset when we hit half the total width in reverse
+            // Reverse scrolling: if the last image has moved out of view, move it to the front
             if (speed < 0 && scrollAmount >= 0) {
-                scrollAmount = -totalImageWidth / 2; // Reset for reverse scrolling to start from the end
+                marqueeInner.insertBefore(lastImage, firstImage); // Move last image to the front
+                scrollAmount -= lastImageWidth; // Adjust scrollAmount to account for the shifted image
             }
 
-            // Apply the scrolling
+            // Apply the scroll transformation
             marqueeInner.style.transform = `translateX(${scrollAmount}px)`;
 
-            requestAnimationFrame(scrollMarquee); // Keep the animation going
+            requestAnimationFrame(scrollMarquee); // Keep the scrolling loop running
         }
 
         scrollMarquee(); // Start scrolling
