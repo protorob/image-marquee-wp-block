@@ -73,7 +73,7 @@ registerBlockType('imgb/marquee-block', {
                 <div className="imgb-marquee-preview">
                     {images.length ? (
                         images.map((image) => (
-                            <img key={image.id} src={image.url} alt={image.alt} style={{ width: imageWidth }} />
+                            <img class="marquee-img" key={image.id} src={image.url} alt={image.alt} style={{ width: imageWidth }} />
                         ))
                     ) : (
                         <p>{__('No images selected', 'imgb')}</p>
