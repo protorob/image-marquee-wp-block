@@ -1,5 +1,5 @@
 {
-  "name": "image-marquee-block",
+  "name": "image-marquee-wp-block",
   "version": "1.0.0",
   "main": "block.js",
   "scripts": {
